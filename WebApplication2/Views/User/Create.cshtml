@@ -1,0 +1,31 @@
+﻿@model WebApplication2.ViewModels.RegisterViewModel
+<h2>Создание нового пользователя</h2>
+<form method="post" asp-controller="Account" asp-action = "Register">
+    <div asp-validation-summary=ModelOnly></div>
+    <div>
+        <lable asp-for="Email"></lable><br/>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <lable asp-for="Year"></lable><br/>
+        <input asp-for="Year" />
+        <span asp-validation-for="Year"></span>
+    </div>
+    <div>
+        <lable asp-for="Password"></lable><br/>
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <lable asp-for="PasswordConfirm"></lable><br/>
+        <input asp-for="PasswordConfirm" />
+        <span asp-validation-for="PasswordConfirm"></span>
+    </div>
+    <div>
+        <input type = "submit" value = "Создание" />
+    </div>
+
+
+
+</form>

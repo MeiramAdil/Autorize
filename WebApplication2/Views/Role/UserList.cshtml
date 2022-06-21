@@ -1,0 +1,17 @@
+﻿@model IEnumerable<User>
+
+<h2>List of roles</h2>
+<table class="table">
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>
+                @user.Email
+            </td>
+            <td>
+                <button type="submit" class="btn"><a asp-controller="Role" asp-action="Edit" asp-route-userId="@user.Id"> Edit</a></button>
+            </td>
+        </tr>
+    }
+</table>
+

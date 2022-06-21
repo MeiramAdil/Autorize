@@ -1,0 +1,15 @@
+﻿@using WebApplication2.ViewModels
+@model ChangeRoleViewModel
+
+<h2>Edit of role for @Model.UserEmail</h2>
+<form method="post" asp-controller="Role" asp-action="Edit">
+    <div>
+        <lable>Roles</lable>
+        @foreach (var role in Model.AllRoles)
+        {
+            <input type="checkbox" id="@role.Id" name="@role.Name" @Model.UserRoles.Contains(role.Name) ? "checked" : "" >
+            <lable for="role">@role.Name</lable>
+        }
+    </div>
+</form>
+

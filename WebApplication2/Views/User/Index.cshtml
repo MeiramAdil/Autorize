@@ -1,0 +1,23 @@
+﻿@model IEnumerable<User>
+
+<table>
+    <tr>
+        <th>Email</th>
+        <th>Год рождения</th>
+    </tr>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Email</td>
+            <td>@user.BirthYear</td>
+            <td>
+                <form asp-action="Delete" asp-route-id="@user.Id" method="post">
+                    <button type="submit" class="btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+<form asp-action="Create" metethod="get">
+    <button type="submit" class="btn">Create</button>
+</form>
