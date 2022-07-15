@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApplication2.Migrations
 {
-    public partial class InitMgri : Migration
+    public partial class Initmigr : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

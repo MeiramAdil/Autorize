@@ -16,18 +16,19 @@ namespace WebApplication2.Controllers
     {
       return View(_userManager.Users.ToList());
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Delete(string id)
     {
       User user = await _userManager.FindByIdAsync(id);
-      if(user != null)
+      if (user != null)
       {
         await _userManager.DeleteAsync(user);
       }
       return RedirectToAction("Index");
     }
 
+    [HttpGet]
     public IActionResult Create()
     {
       return View();
@@ -42,6 +43,18 @@ namespace WebApplication2.Controllers
         UserName = model.Email,
         BirthYear = model.Year
       };
+      var result = await _userManager.CreateAsync(user, model.Password);
+      if (result.Succeeded)
+      {
+        return RedirectToAction("Index", "User");
+      }
+      else
+      {
+        foreach (var error in result.Errors)
+        {
+          ModelState.AddModelError(String.Empty, error.Description);
+        }
+      }
       return View(user);
     }
 
@@ -63,6 +76,32 @@ namespace WebApplication2.Controllers
       }
       return RedirectToAction("Index", "Home");
     }
+    [HttpGet]
+    public IActionResult Edit(string? id)
+    {
+      if (id == null)
+        return NotFound();
+      var user = _userManager.Users.Where(x => x.Id == id).FirstOrDefault();
+      if (user == null)
+        return NotFound();
 
+      return View(user);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(User user)
+    {
+      if (user == null)
+        return NotFound();
+      var result = await _userManager.UpdateAsync(user);
+      if (result.Succeeded)
+        return RedirectToAction("Index", "User");
+      else
+        foreach (var error in result.Errors)
+        {
+          ModelState.AddModelError(string.Empty, error.Description);
+        };
+      return Ok("Ошибка!");
+    }
   }
 }

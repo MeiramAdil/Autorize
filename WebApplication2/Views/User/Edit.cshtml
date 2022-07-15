@@ -1,0 +1,21 @@
+﻿@model WebApplication2.Models.User
+<form method="post" asp-controller="User" asp-action = "Edit">
+    <div asp-validation-summary=ModelOnly></div>
+    <div>
+        <lable asp-for="Email">Email</lable><br/>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <lable asp-for="BirthYear">Birth Year</lable><br/>
+        <input asp-for="BirthYear" />
+        <span asp-validation-for="BirthYear"></span>
+    </div>
+    
+    <div>
+        <input type = "submit" value = "Изменить" />
+    </div>
+
+
+
+</form>
