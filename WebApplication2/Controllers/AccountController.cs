@@ -22,18 +22,15 @@ namespace WebApplication2.Controllers
     }
     [HttpPost]
     public async Task<IActionResult> Register(RegisterViewModel model)
-   {
+    {
       if (ModelState.IsValid)
       {
-        User user = new User
-        {
-          Email = model.Email,
-          UserName = model.Email,
-          BirthYear = model.Year
-        };
+        User user = new User { Email = model.Email, UserName = model.UserName};
+        // добавляем пользователя
         var result = await _userManager.CreateAsync(user, model.Password);
         if (result.Succeeded)
         {
+          // установка куки
           await _signInManager.SignInAsync(user, false);
           return RedirectToAction("Index", "Home");
         }
@@ -41,7 +38,7 @@ namespace WebApplication2.Controllers
         {
           foreach (var error in result.Errors)
           {
-            ModelState.AddModelError(String.Empty, error.Description);
+            ModelState.AddModelError(string.Empty, error.Description);
           }
         }
       }
@@ -49,37 +46,48 @@ namespace WebApplication2.Controllers
     }
 
     [HttpGet]
-    public IActionResult Login()
+    public IActionResult Login(string pageName)
     {
-      return View();
+      var url = Request.Host + ViewBag.Login;
+      return View(new LoginViewModel { ReturnUrl = url });
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
       if (ModelState.IsValid)
       {
-        var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+        var result =
+            await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
         if (result.Succeeded)
         {
-          return RedirectToAction("Index", "Home");
+          // проверяем, принадлежит ли URL приложению
+          if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+          {
+            return Redirect(model.ReturnUrl);
+          }
+          else
+          {
+            return RedirectToAction("Index", "Home");
+          }
         }
-
-      }
-      else
-      {
-        ModelState.AddModelError("", "Неправильный логин или пароль");
+        else
+        {
+          ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+        }
       }
       return View(model);
     }
 
     [HttpPost]
-    public async Task<IActionResult> LogOut()
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Logout()
     {
+      // удаляем аутентификационные куки
       await _signInManager.SignOutAsync();
       return RedirectToAction("Index", "Home");
     }
-
 
   }
 }

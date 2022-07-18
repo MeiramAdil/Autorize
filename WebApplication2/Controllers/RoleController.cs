@@ -58,9 +58,9 @@ namespace WebApplication2.Controllers
 
     public List<User> Users = new List<User>
     {
-      new User {Id = "1", Email = "adilmeiram", BirthYear = 2005},
-      new User {Id = "2", Email = "adilmeiram", BirthYear = 2005},
-      new User {Id = "3", Email = "adilmeiram", BirthYear = 2005}
+      new User {Id = "1", Email = "adilmeiram"},
+      new User {Id = "2", Email = "adilmeiram"},
+      new User {Id = "3", Email = "adilmeiram"}
 
     };
 

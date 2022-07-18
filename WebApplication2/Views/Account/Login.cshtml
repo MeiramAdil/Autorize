@@ -1,28 +1,25 @@
 ﻿@model WebApplication2.ViewModels.LoginViewModel
 
 <h2>Вход в приложение</h2>
-<form method="post" asp-controller="Account" asp-action="Login">
-    <div asp-validation-summary=ModelOnly></div>
+<form method="post" asp-controller="Account" asp-action="Login"
+      asp-route-returnUrl="@Model.ReturnUrl">
+    <div asp-validation-summary="ModelOnly"></div>
     <div>
         <label asp-for="Email"></label><br />
-        <input asp-for="Email"></input>
+        <input asp-for="Email" />
         <span asp-validation-for="Email"></span>
     </div>
     <div>
         <label asp-for="Password"></label><br />
-        <input asp-for="Password"></input>
+        <input asp-for="Password" />
         <span asp-validation-for="Password"></span>
     </div>
     <div>
         <label asp-for="RememberMe"></label><br />
-        <input asp-for="RememberMe"></input>
-        <span asp-validation-for="RememberMe"></span>
+        <input asp-for="RememberMe" />
     </div>
     <div>
-        <input type="submit" value="Войти" /><br/>
-    </div>
-    <div>
-        Если у вас нету аккаунта <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Зарегестрируйтесь</a>
+        <input type="submit" value="Войти" />
     </div>
 </form>
 

@@ -9,8 +9,8 @@ namespace WebApplication2.ViewModels
     public string Email { get; set; }
 
     [Required]
-    [Display(Name = "Год рождения")]
-    public int Year { get; set; }
+    [Display(Name = "UserName")]
+    public string UserName { get; set; }
 
     [Required]
     [DataType(DataType.Password)]

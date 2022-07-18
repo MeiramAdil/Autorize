@@ -41,7 +41,6 @@ namespace WebApplication2.Controllers
       {
         Email = model.Email,
         UserName = model.Email,
-        BirthYear = model.Year
       };
       var result = await _userManager.CreateAsync(user, model.Password);
       if (result.Succeeded)

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,7 +31,20 @@
                 </div>
             </div>
             <div>
-                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <p>@User.Identity.Name</p>
+
+                    <form method="post" asp-controller="Account" asp-action="Logout">
+                        <input type="submit" value="Выход" />
+                    </form>
+                }
+                else
+                {
+                    ViewBag.Login = ViewContext.RouteData.Values["controller"].ToString() + @ViewContext.RouteData.Values["action"].ToString();
+                    <a asp-controller="Account" asp-action="Login">Вход</a>
+                    <a asp-controller="Account" asp-action="Register">Регистрация</a>
+                }
             </div>
         </nav>
 
