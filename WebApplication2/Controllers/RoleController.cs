@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication2.Models;
 using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
+  [Authorize(Roles = "admin")]
   public class RoleController : Controller
   {
     RoleManager<IdentityRole> _roleManager;

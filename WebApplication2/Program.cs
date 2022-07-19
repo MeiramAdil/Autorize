@@ -23,11 +23,18 @@ if (!app.Environment.IsDevelopment())
   app.UseHsts();
 }
 
+
+var serviceScope = app.Services.CreateScope();
+
+var dbContext = serviceScope.ServiceProvider.GetService<ApplicationContext>();
+//await dbContext.InitializeAsync();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

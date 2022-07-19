@@ -22,11 +22,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Works" asp-action="Index">Все произведения</a>
                         </li>
+                        @((User.IsInRole("user")) ? "<li class='nav-item'><a class='nav-link text-dark' asp-area='' asp-controller='Works' asp-action='GetUsersWorks'>Мой произведения</a></li>" : "")
+                        @((User.IsInRole("admin")) ? "<li class='nav-item'><a class='nav-link text-dark' asp-area='' asp-controller='User' asp-action='Index'>Пользователи</a></li><li class='nav-item'><a class='nav-link text-dark' asp-area='' asp-controller='Role' asp-action='Index'>Роли</a></li>" : "")
                     </ul>
                 </div>
             </div>
@@ -41,7 +43,6 @@
                 }
                 else
                 {
-                    ViewBag.Login = ViewContext.RouteData.Values["controller"].ToString() + @ViewContext.RouteData.Values["action"].ToString();
                     <a asp-controller="Account" asp-action="Login">Вход</a>
                     <a asp-controller="Account" asp-action="Register">Регистрация</a>
                 }

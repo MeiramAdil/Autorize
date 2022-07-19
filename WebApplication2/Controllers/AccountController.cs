@@ -48,7 +48,7 @@ namespace WebApplication2.Controllers
     [HttpGet]
     public IActionResult Login(string pageName)
     {
-      var url = Request.Host + ViewBag.Login;
+      var url = Request.Host + "/Home/index";
       return View(new LoginViewModel { ReturnUrl = url });
     }
 
@@ -58,6 +58,7 @@ namespace WebApplication2.Controllers
     {
       if (ModelState.IsValid)
       {
+        
         var result =
             await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
         if (result.Succeeded)

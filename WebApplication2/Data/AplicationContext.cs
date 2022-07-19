@@ -11,7 +11,7 @@ namespace WebApplication2.Data
     public DbSet<Сomment> Comments { get; set; }
     public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
     {
-
+      Database.EnsureCreated();
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
